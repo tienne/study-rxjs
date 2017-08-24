@@ -2,9 +2,11 @@
 
 요즘 함수형 프로그래밍 혹은 리액티브 프로그래밍라는 용어가 자주 보인다. 
 
-ReactiveX란 무엇인가?
+이 문서에서는 Reactive 혹은 함수형 프로그래밍에 대한 설명을 깊게 하진 않는다.(왜냐면 설명하자니 너무 어렵다.) 그치만 중요하다 개인발전을 좋아하는 개발자라면 꼭 한번 찾아보자  
 
-그 정보는 [나프콘 2016 김훈민님의 발표내용](https://www.youtube.com/watch?v=3FKlYO4okts) 또는 [김훈민님 블로그](http://huns.me/development/2051)에서 자세히 확인이 가능하니 여기서는 간략하게만 설명하자
+그 정보는 [나프콘 2016 김훈민님의 발표내용](https://www.youtube.com/watch?v=3FKlYO4okts) 또는 [김훈민님 블로그](http://huns.me/development/2051)에서 자세히 확인이 가능하니 여기서는 ReactiveX에 대해서만 간략하게 알아보자
+
+### ReactiveX란 무엇인가?
 
 공식홈페이지에는 아래와 같이 설명되어있다.
 >ReactiveX is a library for composing asynchronous and event-based programs by using observable sequences.
@@ -16,9 +18,9 @@ ReactiveX란 무엇인가?
 
 # RxJs?
 
-ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs
+ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs 
 
-ReactivX는 비동기의 문제를 해결하기 위해 만들어졌는데, 도대체 어떠한 방향으로 해결할려고 했을까?
+ReactiveX는 비동기의 문제를 해결하기 위해 만들어졌는데, promise / await / generator 등과 무엇이 다르며, 도대체 어떠한 방향으로 해결할려고 했을지 알아보자
 
 # Your mouse is a database
 
