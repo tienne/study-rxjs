@@ -1,8 +1,8 @@
-# RxJs?
+# ReactiveX? 리액티브? 요즘 왜이리 자주 나오는건데?
 
-ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs
+요즘 함수형 프로그래밍 혹은 리액티브 프로그래밍라는 용어가 자주 보인다. 
 
-그럼 ReactiveX란 무엇인가?
+ReactiveX란 무엇인가?
 
 그 정보는 [나프콘 2016 김훈민님의 발표내용](https://www.youtube.com/watch?v=3FKlYO4okts) 또는 [김훈민님 블로그](http://huns.me/development/2051)에서 자세히 확인이 가능하니 여기서는 간략하게만 설명하자
 
@@ -14,12 +14,11 @@ ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs
 
 처음 ReactivX는 .NET용 라이브러리로 출시되었으며, 그이후 RxJS / RxJava / Rx++ 등 추가로 출시하면서 오픈소스화 하였다고한다
 
+# RxJs?
+
+ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs
+
 ReactivX는 비동기의 문제를 해결하기 위해 만들어졌는데, 도대체 어떠한 방향으로 해결할려고 했을까?
-
-# Reactive? 도대체 요즘 왜이리 많이 나오는건데
-
-요즘 함수형 프로그래밍 혹은 리액티브 프로그래밍라는 용어가 자주 보인다. 
-사실 너무 깊게들어가면 너무 어렵다. 그래서 천천히 작성하자...
 
 # Your mouse is a database
 
