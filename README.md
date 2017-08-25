@@ -158,7 +158,7 @@ const subscription = observable$.subscribe(
 //"완료"
 ```
 
-여기서 변수명 `observable$` 변수 뒤에 $는 해당 변수가 스트림(stream) 혹은 `Observable`임을 나타내는 의미입니다.
+여기서 변수명 `observable$` 변수 뒤에 $는 해당 변수가 `스트림(stream)` 혹은 `Observable`임을 나타내는 의미입니다.
 
 observable를 구독하면 리턴값으로 `Subscription`이 생성되는데 위에 구성요소에 설명한거와 같이 `unsubscribe()` 메서드를 이용하여 구독을 취소에 사용됩니다.
 
