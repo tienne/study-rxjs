@@ -2,9 +2,11 @@
 
 요즘 함수형 프로그래밍 혹은 리액티브 프로그래밍라는 용어가 자주 보인다. 
 
-이 문서에서는 Reactive 혹은 함수형 프로그래밍에 대한 설명을 깊게 하진 않는다.(왜냐면 설명하자니 너무 어렵다.) 그치만 중요하다 개인발전을 좋아하는 개발자라면 꼭 한번 찾아보자  
+이 문서에서는 Reactive 혹은 함수형 프로그래밍에 대한 설명을 깊게 하진 않는다.
 
-그 정보는 [나프콘 2016 김훈민님의 발표내용](https://www.youtube.com/watch?v=3FKlYO4okts) 또는 [김훈민님 블로그](http://huns.me/development/2051)에서 자세히 확인이 가능하니 여기서는 ReactiveX에 대해서만 간략하게 알아보자
+왜냐면 설명하자니 너무 어렵다. 그치만 중요하다 개인발전을 좋아하는 개발자라면 꼭 한번 찾아서 읽어보자  
+
+ReactiveX 또는 리액티브 프로그래밍 대한 정보는 [나프콘 2016 김훈민님의 발표내용](https://www.youtube.com/watch?v=3FKlYO4okts) 또는 [김훈민님 블로그](http://huns.me/development/2051)에서 자세히 확인이 가능하니 여기서는 ReactiveX에 대해서만 간략하게 알아보자
 
 ### ReactiveX란 무엇인가?
 
@@ -18,7 +20,9 @@
 
 # RxJs?
 
-ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs 
+ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs
+
+Angular 2(이하 Angular)에서 비동기 처리등에 적극 도입했으며, Angular의 필수 라이브러리 중 하나이다. 
 
 ReactiveX는 비동기의 문제를 해결하기 위해 만들어졌는데, promise / await / generator 등과 무엇이 다르며, 도대체 어떠한 방향으로 해결할려고 했을지 알아보자
 
@@ -77,6 +81,91 @@ clickStream
 ```SQL
 SELECT clientY FROM clicks where altKey == true;
 ```
+
+# RxJs의 구성요소 및 키워드
+
+- Observable: 미래의 값(value)나 이벤트의 호출 가능한 수집의 개념을 나타냄.
+- Observer: Observable에 의해 전달 된 값을 처리하는 콜백 콜렉션.
+- Subscription: Observable의 실행을 나타냄. 주로 실행 취소에 유용함.
+- Operators: map, filter, concat, flatMap 등과 같은 method를 사용하여 컬렉션을 다루는 함수 프로그래밍 스타일을 가능하게하는 순수(pure) 함수.
+- Subject: EventEmitter와 동일하며 여러 Observers에 값 또는 이벤트를 멀티 캐스팅함.
+- Schedulers: 동시 처리를 제어하는 중앙 집중식 디스패처로서 계산이 언제 발생하는지 조정할 수 있다. setTimeout or requestAnimationFrame or others.
+
+각각의 요소들에 대해 알아보자
+
+### Observable
+
+Observable은 관찰할 수 있는 대상 혹은 데이터를 지칭합니다. 
+
+이 데이터는 ['Rxjs', 'RxJava'] 같은 배열 데이터도 될 수 있고 Ajax 비동기 통신 결과 혹은 클릭 이벤트 등 Observable로 만들 수 있습니다.
+
+간단한 Observable 객체를 만들어보도록 하겠습니다.
+
+```typescript
+const observable$ = Rx.Observable.create(function(observer) {
+    observer.onNext(1);
+    observer.onNext(2); 
+    observer.onNext(3); 
+
+    observer.onCompleted();
+});
+observable$.subscribe(observer);
+```
+이 observable은 [1, 2, 3] 같이 표현할 수 있으며, 이러한 Observable를 관찰(구독)하는 대상을 Observer라고 합니다.
+
+이 observable를 subscribe 메서드를 이용해서 observer에 구독할 수 있습니다. 
+
+### Observer
+
+이 Observer는 아래처럼 정의되어있습니다.
+
+```typescript
+interface Observer<T> {
+  closed?: boolean;
+  next: (value: T) => void;
+  error: (err: any) => void;
+  complete: () => void;
+}
+```
+
+- next: 다음 데이터를 불러올때 발생되는 메서드입니다.
+- error: 데이터를 불러오는 과정에서 오류가 발생되었을때 발생되는 메서드입니다.
+- complete: 모든데이터를 다 불러왔을때 발생되는 메서드입니다.
+
+위에서 선언했던 observable$를 구독하여 observer$를 처리 해보도록 하겠습니다.
+```typescript
+const observable$ = Rx.Observable.create(function(observer) {
+    observer.onNext(1);
+    observer.onNext(2); 
+    observer.onNext(3); 
+    
+    observer.onCompleted();
+});
+
+const subscription = observable$.subscribe(
+  (value) => console.log(`값: ${value}`),
+  (error) => console.log(`에러: ${error}`),
+  () => console.log(`완료`)
+);
+
+//구독 취소
+//subscription.unsubscribe();
+
+//결과 console
+//"값: 1"
+//"값: 2"
+//"값: 3"
+//"완료"
+```
+
+여기서 변수명 `observable$` 변수 뒤에 $는 해당 변수가 스트림(stream) 혹은 `Observable`임을 나타내는 의미입니다.
+
+observable를 구독하면 리턴값으로 `Subscription`이 생성되는데 위에 구성요소에 설명한거와 같이 `unsubscribe()` 메서드를 이용하여 구독을 취소에 사용됩니다.
+
+### Subscription
+
+
+ 
 
 
 
