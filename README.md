@@ -1,6 +1,6 @@
-# ReactiveX? 리액티브? 요즘 왜이리 자주 나오는건데?
+# 함수형 프로그래밍? 리액티브 프로그래밍?
 
-요즘 함수형 프로그래밍 혹은 리액티브 프로그래밍라는 용어가 자주 보인다. 
+요즘 함수형 프로그래밍 혹은 리액티브 프로그래밍 같은 용어가 자주 보인다. 
 
 이 문서에서는 Reactive 혹은 함수형 프로그래밍에 대한 설명을 깊게 하진 않는다.
 
@@ -22,9 +22,12 @@ ReactiveX 또는 리액티브 프로그래밍 대한 정보는 [나프콘 2016 �
 
 ReactiveX 시리즈의 JavaScript 구현체 라이브러리가 RxJs
 
+지원 브라우저 현황은 아래와 같다.
+>IE6+, Chrome 4+, FireFox 1+, Node.js v0.4+
+
 Angular 2(이하 Angular)에서 비동기 처리등에 적극 도입했으며, Angular의 필수 라이브러리 중 하나이다. 
 
-ReactiveX는 비동기의 문제를 해결하기 위해 만들어졌는데, promise / await / generator 등과 무엇이 다르며, 도대체 어떠한 방향으로 해결할려고 했을지 알아보자
+ReactiveX는 비동기의 문제를 해결하기 위해 만들어졌는데, promise / await / generator 등과 무엇이 다르며, 도대체 어떠한 방향으로 해결하고자 했을지 알아보자
 
 # Your mouse is a database
 
@@ -95,7 +98,7 @@ SELECT clientY FROM clicks where altKey == true;
 
 ### Observable
 
-Observable은 관찰할 수 있는 대상 혹은 데이터를 지칭합니다. 
+`Observable`은 관찰할 수 있는 대상 혹은 데이터를 지칭합니다. 
 
 이 데이터는 ['Rxjs', 'RxJava'] 같은 배열 데이터도 될 수 있고 Ajax 비동기 통신 결과 혹은 클릭 이벤트 등 Observable로 만들 수 있습니다.
 
@@ -111,13 +114,13 @@ const observable$ = Rx.Observable.create(function(observer) {
 });
 observable$.subscribe(observer);
 ```
-이 observable은 [1, 2, 3] 같이 표현할 수 있으며, 이러한 Observable를 관찰(구독)하는 대상을 Observer라고 합니다.
+객체 observable$은 [1, 2, 3] 같이 표현할 수 있으며, 이러한 `Observable`를 관찰(구독)하는 대상을 `Observer`라고 합니다.
 
-이 observable를 subscribe 메서드를 이용해서 observer에 구독할 수 있습니다. 
+RxJs에선 observable$의 `subscribe` 메서드를 이용해서 `Observer`에 구독할 수 있습니다. 
 
 ### Observer
 
-이 Observer는 아래처럼 정의되어있습니다.
+`Observer`는 아래처럼 정의되어있습니다.
 
 ```typescript
 interface Observer<T> {
@@ -164,18 +167,12 @@ observable를 구독하면 리턴값으로 `Subscription`이 생성되는데 위
 
 ### Subscription
 
+observable$이 `subscribe` 메서드를 호출하여 구독시 Subscription 객체가 생성되며, 이 생성된 subscription의 `unsubscription` 메서드 호출시 구독 취소와 함께 사용되었던 리소스가 제거됩니다.
+`SubScription`은 주로 구독을 취소하여 구독으로 발생된 리소스를 해제하는 할때 사용됩니다. angular에서는 ngOnDestroy에서 `Observable`를 폐기할때 사용합니다.
 
- 
+또한 add 메서드를 이용하여 하위 subscription을 포함시킬 수 있습니다. add로 추가된 하위 subscription은 상위 구독정보가 취소될 경우 같이 구독 취소됩니다.
 
-
-
-
-
-
-
-
-
-
+### Operator
 
 
  
